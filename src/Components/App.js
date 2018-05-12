@@ -6,7 +6,22 @@ import CardBox from './CardBox'
 const shuffle = require("shuffle-array");
 
 class App extends Component {
-  img = [188987, 188988, 188989, 188990, 188991, 188992, 188993, 188994, 188995, 188996, 188997, 188998, 188999, 189001, 189004, 189006]
+  img = ['https://image.flaticon.com/icons/svg/188/188987.svg',
+    'https://image.flaticon.com/icons/svg/189/189001.svg',
+    'https://image.flaticon.com/icons/svg/188/188990.svg',
+    'https://image.flaticon.com/icons/svg/188/188989.svg',
+    'https://image.flaticon.com/icons/svg/188/188993.svg',
+    'https://image.flaticon.com/icons/svg/189/189000.svg',
+    'https://image.flaticon.com/icons/svg/188/188988.svg',
+    'https://image.flaticon.com/icons/svg/188/188995.svg',
+    'https://image.flaticon.com/icons/svg/188/188997.svg',
+    'https://image.flaticon.com/icons/svg/188/188996.svg',
+    'https://image.flaticon.com/icons/svg/188/188998.svg',
+    'https://image.flaticon.com/icons/svg/189/189006.svg',
+    'https://image.flaticon.com/icons/svg/188/188991.svg',
+    'https://image.flaticon.com/icons/svg/188/188992.svg',
+    'https://image.flaticon.com/icons/svg/189/189004.svg',
+    'https://image.flaticon.com/icons/svg/189/189005.svg']
   newImg = [...this.img]
   state = {
     img: [],
@@ -15,6 +30,7 @@ class App extends Component {
     loading: false,
     pickUp: [],
     same: null,
+    score: 0
   }
 
   async newGame(val) {
@@ -27,11 +43,23 @@ class App extends Component {
   }
 
   endGame = (val) => {
-    this.setState({
-      gameStart: false,
-      img: [],
-      loading: false
-    })
+    if (val !== null) {
+      alert('congratulation!!')
+      this.setState({
+        gameStart: false,
+        showAll: true,
+        loading: false,
+        score: 0
+      })
+    } else {
+      alert('game over!!')
+      this.setState({
+        gameStart: false,
+        showAll: true,
+        loading: false,
+        score: 0
+      })
+    }
   }
 
   shuffleCard = (num) => {
@@ -52,6 +80,7 @@ class App extends Component {
       if (this.state.pickUp.length === 0) {
         this.setState({ pickUp: [...this.state.pickUp, img], same: i })
       } else if (this.state.pickUp[0] !== img) {
+        alert('card not match!!')
         this.setState({ pickUp: [], same: null })
       } else {
         this.deleteCard(img)
@@ -60,6 +89,7 @@ class App extends Component {
       alert('do not pick the same card!!')
       this.setState({ pickUp: [], same: null })
     }
+    this.chkScore()
   }
 
   deleteCard = (img) => {
@@ -70,8 +100,15 @@ class App extends Component {
         }
       }),
       pickUp: [],
-      same: null
+      same: null,
+      score: this.state.score + 1
     })
+  }
+
+  chkScore = () => {
+    if (this.state.score === (this.state.cardRange / 2)) {
+      this.deleteCard('complete')
+    }
   }
 
 
@@ -102,11 +139,12 @@ class App extends Component {
                   <a className="dropdown-item" onClick={() => this.setRange(20)}>20</a>
                 </div>
               </div>
+              <h3 className={this.state.gameStart === true ? '' : 'hidden'}>  score : {this.state.score}</h3>
             </div>
           </div>
 
           <div className='row'>
-            <CardBox pickCard={this.state.same} pushPickup={this.pushPickup} loading={this.state.loading} gameStart={this.state.gameStart} imgPick={this.state.img} />
+            <CardBox showAll={this.state.showAll} pickCard={this.state.same} pushPickup={this.pushPickup} loading={this.state.loading} gameStart={this.state.gameStart} imgPick={this.state.img} />
           </div>
         </div>
       </div >
