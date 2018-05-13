@@ -11,8 +11,8 @@ export default class CardBox extends Component {
                     {this.props.imgPick.map((img, i) => {
                         return (
                             <div key={i} className='col-2 offset-1' onClick={() => this.props.pushPickup(img, i)} >
-                                <div className={this.props.pickCard === i ? 'hidden' : ''} style={{ border: 'black', backgroundColor: 'violet', height: 150, marginBottom: '2%' }} ></div>
-                                <img src={img} className={this.props.pickCard === i ? '' : 'hidden'} style={{ height: 150, marginBottom: '2%' }} />
+                                <div className={this.props.pickCard === i ? 'hidd' : ''} style={{ border: 'black', backgroundColor: 'violet', height: 150, marginBottom: '2%' }} ></div>
+                                <img src={img} className={this.props.pickCard === i ? '' : 'hidd'} style={{ height: 150, marginBottom: '2%' }} />
                             </div>
                         )
                     })}

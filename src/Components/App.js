@@ -43,7 +43,9 @@ class App extends Component {
   }
 
   endGame = (val) => {
-    if (val !== null) {
+    console.log(val);
+
+    if (val !== undefined) {
       alert('congratulation!!')
       this.setState({
         gameStart: false,
@@ -144,7 +146,7 @@ class App extends Component {
           </div>
 
           <div className='row'>
-            <CardBox showAll={this.state.showAll} pickCard={this.state.same} pushPickup={this.pushPickup} loading={this.state.loading} gameStart={this.state.gameStart} imgPick={this.state.img} />
+            <CardBox pickCard={this.state.same} pushPickup={this.pushPickup} loading={this.state.loading} gameStart={this.state.gameStart} imgPick={this.state.img} />
           </div>
         </div>
       </div >
